@@ -12,7 +12,7 @@
 
   <!-- Bootstrap core CSS -->
   <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-  <link href="{{ url_for('static', filename='css/bmiindex.css')}}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/stylesheet.css')}}" rel="stylesheet">
 </head>
 <body>
 
@@ -24,7 +24,7 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('schedule') }}">Schedule</a>
+        <a class="nav-link" id="NavbarText="{{ url_for('schedule') }}">Schedule</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Track</a>
