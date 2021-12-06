@@ -14,8 +14,6 @@ from datetime import datetime
 import calendar
 from sqlalchemy import Table, Column, Integer, ForeignKey, MetaData, update
 from sqlalchemy.orm import relationship
-import time
-import atexit
 
 app = Flask(__name__)
 ##Will see what to do with this
