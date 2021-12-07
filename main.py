@@ -1,23 +1,18 @@
-from functools import wraps
-import flask
-from flask import Flask, render_template, redirect, url_for, flash, request, abort
-from flask_bootstrap import Bootstrap
-from flask_ckeditor import CKEditor
-from datetime import date
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import relationship, session, Session
-from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
-from forms import CalculationForm, SpravciLoginForm
-from flask_gravatar import Gravatar
-from datetime import datetime
 import calendar
-from sqlalchemy import Table, Column, Integer, ForeignKey, MetaData, update
+import os
+import smtplib
+from datetime import datetime
+from flask import Flask, render_template, redirect, url_for, flash, request
+from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import Column, ForeignKey
 from sqlalchemy.orm import relationship
-
+from forms import CalculationForm, SpravciLoginForm, ReservationForm
+from dotenv import load_dotenv
+load_dotenv()
 app = Flask(__name__)
+
 ##Will see what to do with this
-Bootstrap(app)
 app.config['SECRET_KEY'] = 'any-secret-key-you-choose'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///dates.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -25,6 +20,7 @@ db = SQLAlchemy(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
+
 
 
 class Association(UserMixin, db.Model):
@@ -146,11 +142,12 @@ this_year = datetime.now().year
 this_month = datetime.now().month
 
 
-@app.route('/schedule/')
+@app.route('/schedule/', methods=['GET', 'POST'])
 def schedule():
     global keep_pokoj
     global this_year
     global this_month
+    form = ReservationForm()
 
     if request.args.get('rk') is not None:
         this_year = int(request.args.get('rk'))
@@ -198,10 +195,25 @@ def schedule():
         print(reservation_control.apartmans_id)
         print(reservation_control.dates_id)
 
+    if form.validate_on_submit() and request.method == 'POST':
+        print(f'validated')
+        email = request.form.get('email')
+        zprava = request.form.get('zprava')
+        telefon = request.form.get('telefon')
+        name = request.form.get('name')
+
+        print(email, zprava, name, telefon)
+        host = "smtp.gmail.com"
+        with smtplib.SMTP(host) as connection:
+            connection.starttls()
+            connection.login(user=os.getenv('OWN_EMAIL'), password=os.getenv('OWN_PASSWORD'))
+            connection.sendmail(from_addr=os.getenv('OWN_EMAIL'), to_addrs=os.getenv('OWN_EMAIL'),
+                                msg=f"Subject:{name} {email} {telefon} \n\n {zprava}")
+        flash("Zpráva byla odeslána")
     return render_template("schedule.html", list_mesicu=list_mesicu, list_roku=list_roku, actual_days=actual_days,
                            this_year=this_year, this_month=this_month, all_apartmens=all_apartmens,
                            apartments_query=apartments_query, reservation_control=reservation_control,
-                           keep_pokoj=keep_pokoj)
+                           keep_pokoj=keep_pokoj, form=form)
 
 
 # prihlaseni pro spravce
@@ -212,6 +224,8 @@ db.session.commit()
 """
 
 db_updated = False
+
+
 @app.route('/spravci/login', methods=['GET', 'POST'])
 def login_spravce():
     global db_updated
@@ -252,4 +266,4 @@ def logout():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

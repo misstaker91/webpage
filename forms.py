@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField, IntegerField
+from wtforms import StringField, SubmitField, PasswordField, IntegerField, TextAreaField
+from wtforms.fields.html5 import EmailField
 from wtforms.validators import DataRequired, URL
 from flask_ckeditor import CKEditorField
 
@@ -13,8 +14,16 @@ class CalculationForm(FlaskForm):
 
 ##Form for spravci login
 class SpravciLoginForm(FlaskForm):
-    name = StringField("Jmeno", validators=[DataRequired()])
+    name = StringField("Jméno", validators=[DataRequired()])
     email = StringField("Email", validators=[DataRequired()])
     password = PasswordField("Heslo", validators=[DataRequired()])
     submit = SubmitField("Prihlasit se")
 
+
+# Reservation form
+class ReservationForm(FlaskForm):
+    name = StringField("Jméno", validators=[DataRequired()])
+    email = EmailField("Email", validators=[DataRequired()])
+    telefon = IntegerField("Tel. číslo", validators=[DataRequired()])
+    zprava = TextAreaField("", validators=[DataRequired()])
+    submit = SubmitField("Prihlasit se")

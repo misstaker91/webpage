@@ -1,76 +1,112 @@
-{% extends 'bootstrap/base.html' %}
-
-{% block content %}
 {% include "header.html" %}
-<ul class="nav justify-content-center">
-<div class="btn-group w-25 h-50">
-  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    {{this_year}}
-  </button>
-  <div class="dropdown-menu w-100">
-    {% for x in list_roku %}
-      <a class="dropdown-item" href="{{url_for('schedule', rk=x)}}">{{x}}</a>
-    {% endfor %}
-  </div>
-</div>
 
-<div class="btn-group w-25 h-50">
-  <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    {{this_month}}
-  </button>
-  <div class="dropdown-menu w-100">
-    {% for y in list_mesicu %}
-      <a class="dropdown-item" href="{{url_for('schedule', msc=y)}}">{{y}}</a>
-    {% endfor %}
-  </div>
-</div>
-
-<div class="btn-group w-25 h-50">
-  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    {{apartments_query.name}}
-  </button>
-  <div class="dropdown-menu w-100">
-    {% for zz in all_apartmens %}
-      <a class="dropdown-item" href="{{url_for('schedule', appart=zz.id)}}">{{zz.name}}</a>
-    {% endfor %}
-  </div>
-</div>
-
-</ul>
-
-
-<div class="row">
-  {% for z in actual_days %}
-
-
-  <div class="col-sm-2">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">{{z.day}}</h5>
-        {% if current_user.is_authenticated: %}
-        <a class="btn btn-dark" href="{{url_for('schedule', daynum=z.day)}}">Reserve</a>
-        {% endif %}
-      </div>
-      {% for promenna in z.children: %}
-      {% if promenna.apartmans_id == keep_pokoj %}
-      {% if promenna.is_reserved %}
-      <div class="progress">
-        <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-      </div>
-      {% else %}
-        <div class="progress">
-          <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+<section class="my-5 ">
+    <div class="container-fluid py-4">
+      <div class="d-flex justify-content-center">
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle mt-auto ms-1 me-1" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          {{this_year}}
+          </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            {% for x in list_roku %}
+              <a class="dropdown-item" href="{{url_for('schedule', rk=x)}}">{{x}}</a>
+            {% endfor %}
+             </ul>
         </div>
-      {% endif %}
-      {% endif %}
-      {% endfor %}
-
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle mt-auto ms-1 me-1" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+        {{this_month}}
+        </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          {% for y in list_mesicu %}
+            <a class="dropdown-item" href="{{url_for('schedule', msc=y)}}">{{y}}</a>
+          {% endfor %}
+          </ul>
+      </div>
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle mt-auto ms-1 me-1" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+        {{apartments_query.name}}
+        </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          {% for zz in all_apartmens %}
+            <a class="dropdown-item" href="{{url_for('schedule', appart=zz.id)}}">{{zz.name}}</a>
+          {% endfor %}
+        </ul>
+      </div>
     </div>
+
+      <div class="row py-3">
+        {% for z in actual_days %}
+
+         <div class="col-md-2 my-2 ">
+           <div class="card">
+            <div class="card-body">
+
+              <h5 class="card-title">{{z.day}}</h5>
+              {% if current_user.is_authenticated: %}
+              <a class="btn btn-dark btn-sm my-2 " href="{{url_for('schedule', daynum=z.day)}}">Reserve</a>
+              {% endif %}
+              {% for promenna in z.children: %}
+              {% if promenna.apartmans_id == keep_pokoj %}
+              {% if promenna.is_reserved %}
+              <div class="progress" style="height: 5px;">
+                <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+              {% else %}
+              <div class="progress" style="height: 5px;">
+                <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="80"></div>
+              </div>
+              {% endif %}
+              {% endif %}
+              {% endfor %}
+            </div>
+           </div>
+
+         </div>
+
+      {% endfor %}
+      </div>
+
+
+<h3 class="text-center my-1">Poptat rezervaci</h3>
+    <form class="row g-3 my-1" method="POST" action="{{ url_for('schedule') }}" >
+          {{ form.csrf_token }}
+
+          <div class="mb-3 col-md-4">
+           <label for="name" class="form-label ">Jméno</label>
+            <input type="text" name='name' class="form-control" >
+            </div>
+            <div class="mb-3 col-md-4">
+           <label for="email" class="form-label">Email</label>
+            <input type="email" name='email' class="form-control" id="exampleFormControlInput1" >
+            </div>
+           <div class="mb-3 col-md-4">
+           <label for="telefon" class="form-label">Tel. číslo</label>
+            <input type="tel" name='telefon' class="form-control" id="exampleFormControlInput1" >
+            </div>
+          <div class="mb-3 col-12">
+          <label for="zprava" class="form-label">Zpráva</label>
+          <textarea class="form-control" name='zprava' rows="3"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-success col-md-2 ms-auto">Odeslat</button>
+        </form>
+    </form>
+
+        {% with messages = get_flashed_messages() %}
+                  {% if messages %}
+                    {% for message in messages %}
+                      <p>{{ message }}</p>
+                    {% endfor %}
+                  {% endif %}
+                {% endwith %}
+
   </div>
+  </section>
 
-  {% endfor %}
 
-</div>
+
+
+
 
 {% include "footer.html" %}
-{% endblock %}
