@@ -9,7 +9,8 @@ from sqlalchemy import Column, ForeignKey
 from sqlalchemy.orm import relationship
 from forms import CalculationForm, SpravciLoginForm, ReservationForm, InfooHostechForm
 from dotenv import load_dotenv
-from flask_migrate import Migrate
+
+# from flask_migrate import Migrate
 
 load_dotenv()
 app = Flask(__name__)
@@ -24,8 +25,9 @@ db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+
 # db migration if new column added follow flak-migrate
-#migrate = Migrate(app, db)
+# migrate = Migrate(app, db)
 
 
 class Association(UserMixin, db.Model):
