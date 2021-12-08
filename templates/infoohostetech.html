@@ -1,0 +1,15 @@
+{% include "header.html" %}
+<section class="my-5 ">
+    <div class="container-fluid py-4">
+
+        <h2>{{filterino.jmeno}}</h2>
+        <h3>{{filterino.email}}</h3>
+        <h3>{{filterino.telefon}}</h3>
+        <h3>{{filterino.infobody}}</h3>
+
+        <a class="btn btn-dark btn-sm my-2 " href="{{url_for('deleteinfo', deleteapartment=filterino.apartmans_id,
+            deletedate=filterino.dates_id)}}">Smazat</a>
+    </div>
+</section>>
+
+{% include "footer.html" %}

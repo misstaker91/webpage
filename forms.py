@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField, IntegerField, TextAreaField
+from wtforms import StringField, SubmitField, PasswordField, IntegerField, TextAreaField, DateField
 from wtforms.fields.html5 import EmailField
 from wtforms.validators import DataRequired, URL
 from flask_ckeditor import CKEditorField
@@ -26,4 +26,15 @@ class ReservationForm(FlaskForm):
     email = EmailField("Email", validators=[DataRequired()])
     telefon = IntegerField("Tel. číslo", validators=[DataRequired()])
     zprava = TextAreaField("", validators=[DataRequired()])
-    submit = SubmitField("Prihlasit se")
+    submit = SubmitField("")
+
+
+class InfooHostechForm(FlaskForm):
+    od = DateField("Od", format='%Y-%m-%d',validators=[DataRequired()])
+    do = DateField("Do", format='%Y-%m-%d',validators=[DataRequired()])
+    jmeno = StringField("Jméno", validators=[DataRequired()])
+    email = EmailField("Email", validators=[DataRequired()])
+    telefon = IntegerField("Tel. číslo", validators=[DataRequired()])
+    popisek_dne = TextAreaField("", validators=[DataRequired()])
+    pokoj = StringField('pokoj', validators=[DataRequired()])
+    submit = SubmitField("")
