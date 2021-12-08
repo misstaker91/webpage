@@ -25,7 +25,7 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 # db migration if new column added follow flak-migrate
-migrate = Migrate(app, db)
+#migrate = Migrate(app, db)
 
 
 class Association(UserMixin, db.Model):
