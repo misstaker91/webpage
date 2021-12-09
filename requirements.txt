@@ -25,3 +25,5 @@ plotly~=5.4.0
 numpy~=1.21.4
 python-dotenv~=0.19.2
 alembic~=1.7.5
+google-auth-oauthlib==0.4.6
+google-api-python-client==2.33.0
