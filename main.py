@@ -9,6 +9,11 @@ from sqlalchemy import Column, ForeignKey
 from sqlalchemy.orm import relationship
 from forms import CalculationForm, SpravciLoginForm, ReservationForm, InfooHostechForm
 from dotenv import load_dotenv
+# google
+from Google import Create_Service
+import base64
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 # from flask_migrate import Migrate
 
@@ -24,8 +29,14 @@ db = SQLAlchemy(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
+####google code
+CLIENT_SECRET_FILE = 'client_secret.json'
+API_NAME = 'gmail'
+API_VERSION = 'v1'
+SCOPES = ['https://mail.google.com/']
 
-
+service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
+# end google code
 # db migration if new column added follow flak-migrate
 # migrate = Migrate(app, db)
 
@@ -247,12 +258,17 @@ def schedule():
         name = request.form.get('name')
 
         print(email, zprava, name, telefon)
-        host = "smtp.gmail.com"
-        with smtplib.SMTP(host) as connection:
-            connection.starttls()
-            connection.login(user=os.getenv('OWN_EMAIL'), password=os.getenv('OWN_PASSWORD'))
-            connection.sendmail(from_addr=os.getenv('OWN_EMAIL'), to_addrs=os.getenv('OWN_EMAIL'),
-                                msg=f"Subject:{name} {email} {telefon} \n\n {zprava}".encode('utf-8'))
+
+
+        emailMsg = f'{zprava}'
+        mimeMessage = MIMEMultipart()
+        mimeMessage['to'] = 'Konigsmarkovi@penzionvrchlabi.cz'
+        mimeMessage['subject'] = f'{name} {email} {telefon} '
+        mimeMessage.attach(MIMEText(emailMsg, 'plain'))
+        raw_string = base64.urlsafe_b64encode(mimeMessage.as_bytes()).decode()
+
+        message = service.users().messages().send(userId='me', body={'raw': raw_string}).execute()
+        print(message)
         flash("Zpráva byla odeslána")
 
     return render_template("schedule.html", list_mesicu=list_mesicu, list_roku=list_roku, actual_days=actual_days,
