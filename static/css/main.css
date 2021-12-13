@@ -1,6 +1,7 @@
 @media (min-width: 0px) {
 .heureka{
-    background: url("/static/fotky/uvodka2.jpg") no-repeat;
+    background:linear-gradient(0deg, rgba(36, 41, 67, 0.6), rgba(36, 41, 67, 0.6)), url("/static/fotky/uvodka2.jpg");
+    color:white
     -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -11,7 +12,8 @@
 
 @media (min-width: 768px) {
 .heureka{
-    background: url("/static/fotky/uvodka2.jpg") no-repeat;
+    background:linear-gradient(0deg, rgba(36, 41, 67, 0.6), rgba(36, 41, 67, 0.6)), url("/static/fotky/uvodka2.jpg");
+    color:white
     -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -23,7 +25,8 @@
 
 @media (min-width: 992px) {
 .heureka{
-    background: url("/static/fotky/uvodka2.jpg") no-repeat;
+    background:linear-gradient(0deg, rgba(36, 41, 67, 0.6), rgba(36, 41, 67, 0.6)), url("/static/fotky/uvodka2.jpg");
+    color:white
     -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -34,18 +37,26 @@
 
 @media (min-width: 1200px) {
 .heureka{
-    background: url("/static/fotky/uvodka2.jpg") no-repeat;
+
+
+    background:linear-gradient(0deg, rgba(36, 41, 67, 0.6), rgba(36, 41, 67, 0.6)), url("/static/fotky/uvodka2.jpg");
+    color:white
     -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
    min-height: 500px;
 
+
+
+
+
 }}
 
 @media (min-width: 1400px) {
 .heureka{
-    background: url("/static/fotky/uvodka2.jpg") no-repeat;
+    background:linear-gradient(0deg, rgba(36, 41, 67, 0.6), rgba(36, 41, 67, 0.6)), url("/static/fotky/uvodka2.jpg");
+    color:white
     -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
