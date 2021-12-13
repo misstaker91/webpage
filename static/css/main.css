@@ -1,3 +1,6 @@
+
+
+
 @media (min-width: 0px) {
 .heureka{
     background:linear-gradient(0deg, rgba(36, 41, 67, 0.6), rgba(36, 41, 67, 0.6)), url("/static/fotky/uvodka2.jpg");
@@ -8,7 +11,15 @@
   background-size: cover;
    min-height: 200px;
 
-}}
+}
+.whaat {
+    margin-top: 30px;
+    font-size: 22px;
+     color: white;
+    text-align: center
+}
+
+}
 
 @media (min-width: 768px) {
 .heureka{
@@ -20,7 +31,14 @@
   background-size: cover;
    min-height: 300px;
 
-}}
+}
+.whaat {
+    margin-top: 50px;
+    font-size: 30px;
+    color: white;
+    text-align: center;
+}
+}
 
 
 @media (min-width: 992px) {
@@ -33,6 +51,12 @@
   background-size: cover;
    min-height: 400px;
 
+}
+.whaat {
+    margin-top: 70px;
+    font-size: 30px;
+    color: white;
+    text-align: center;
 }}
 
 @media (min-width: 1200px) {
@@ -51,7 +75,14 @@
 
 
 
-}}
+}
+.whaat {
+    margin-top: 110px;
+    font-size: 30px;
+    color: white;
+    text-align: center
+}
+}
 
 @media (min-width: 1400px) {
 .heureka{
