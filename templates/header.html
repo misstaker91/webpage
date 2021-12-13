@@ -8,44 +8,21 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Angela's Blog</title>
+  <title>Penzion Vrchlabi</title>
 
   <!-- Bootstrap core CSS -->
   <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="//bootstrap-extension.com/bootstrap-extension-5.0.0/css/bootstrap-extension.min.css" type="text/css">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
 
-<nav class="navbar navbar-light navbar-expand-md fixed-top">
-    <div class="container-fluid">
-      <a class="navbar-brand  ml-auto h1" href="{{url_for('index')}}">Penzion u Königsmarků</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse " id="navmenu">
-        <ul class="navbar-nav ms-auto ">
-          <li class="nav-item">
-            <a class="nav-link h5" href="{{ url_for('schedule') }}">Lyzovani</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link h5" href="{{ url_for('schedule') }}">Svatby</a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link h5" href="{{ url_for('schedule') }}">Fotogalerie</a>
-          </li>
-          <li class="nav-item  ">
-            <a class="nav-link h5" href="{{ url_for('schedule') }}">Rezervace</a>
-          </li>
-          <li class="nav-item  ">
-            <a class="nav-link h5" href="{{ url_for('schedule') }}">Cenik</a>
-          </li>
-          <li class="nav-item h5 ">
-            <a class="nav-link" href="{{ url_for('schedule') }}">Kontakt</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-</nav>
+<section>
+<div class="container-fluid heureka  ">
 
+  <h1>Jumbotron Example</h1>
+  <p>Lorem ipsum...</p>
 
-<!-- Example single danger button -->
+</div>
+</section>

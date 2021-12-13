@@ -1,40 +1,6 @@
 {% include "header.html" %}
 
-  <section class="bg-dark text-light p-5 text-center">
-    <div class="container">
-      <div class="d-sm-flex">
-        <div>
-          <h1>Became developer</h1>
-        </div>
-        <img class='img-fluid w-25' src="{{ url_for('static', filename='fotky/1644c.jpg')}}" alt="">
-      </div>
 
-    </div>
-  </section>
-
-
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        <h1>Here should be form</h1>
-
-        <form method="POST" action="{{ url_for('index') }}">
-          {{ form.csrf_token }}
-          {{ form.vyska.label }} {{ form.vyska(size=20) }}
-          {{ form.vaha.label }} {{ form.vaha(size=20) }}
-          <input type="submit" value="Spocitat">
-        </form>
-      </div>
-    </div>
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <h1 class="text-primary">{{rounded_bmi}}</h1>
-        </div>
-
-      </div>
-
-
-  </div>
 
 
 {% include "footer.html" %}

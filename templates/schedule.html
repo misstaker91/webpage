@@ -53,11 +53,11 @@
               <h6><a href="{{url_for('infohosti', hosti_id=promenna.apartmans_id, hosti_id2=promenna.dates_id)}}">{{promenna.jmeno}}</a></h6>
                 {% endif %}
               <div class="progress" style="height: 5px;">
-                <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
               {% else %}
               <div class="progress" style="height: 5px;">
-                <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="80"></div>
+                <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="80"></div>
               </div>
               {% endif %}
               {% endif %}
