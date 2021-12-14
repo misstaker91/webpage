@@ -28,6 +28,10 @@
 .f-5 {
     background:linear-gradient(0deg, rgba(36, 41, 67, 0), rgba(36, 41, 67, 1))}
 
+.f-6 {
+    background-color:#fce694;
+    }
+
 .firstcol a{
      color: #c57b57;
      font-family: 'Lora', serif;
@@ -40,10 +44,29 @@
      text-decoration: none;
 }
 
+.thirdcol a{
+     color: #58a4b0;
+     font-family: 'Lora', serif;
+     text-decoration: none;
+}
+
 .borderismus1 {
     border-bottom: 3px solid #fce694;
     border-right: 3px solid #fce694;
 }
+
+.borderismus2 {
+    border-bottom: 3px solid #fce694;
+
+}
+.borderismus3 {
+    border-top: 1px solid #093824;
+    border-left: 1px solid #093824;
+    border-bottom: 1px solid #093824;
+    border-right: 1px solid #093824;
+
+}
+
 
 .popisek {
     color:black;
@@ -63,6 +86,9 @@
 }
 #seccond {
     color: #dcabdf;
+}
+#tthird{
+    color: #58a4b0;
 }
 /*END OF CUSTOM VICE ZDE LINKS */
 .heureka{
