@@ -1,5 +1,5 @@
 .leftnav {
-    color: #9bf6ff;
+    color: #fce694;
     font-family: 'Lora', serif;
 }
 
@@ -9,7 +9,7 @@
 }
 
 .hmm {
-    height:100px;
+    height:200px;
 
 }
 
@@ -19,7 +19,7 @@
 }
 
 .f-2 {
-    background-color:#4c4f57;
+    background-color:#c792df;
 
 
 }
@@ -29,12 +29,12 @@
 }
 
 #firstcol {
-     color: #9bf6ff;
+     color: #fce694;
      font-family: 'Lora', serif;
 }
 
 #secondcol {
-     color: #9bf6ff;
+     color: #fce694;
      font-family: 'Lora', serif;
 }
 
@@ -42,6 +42,15 @@
     color:white;
     font-family: 'Nunito', sans-serif;
 }
+
+.customaref {
+    text-decoration: none;
+    color: #fce694;
+    font-family: 'Nunito', sans-serif;
+
+}
+
+
 .heureka{
     background:linear-gradient(0deg, rgba(36, 41, 67, 0), rgba(36, 41, 67, 1)), url("/static/fotky/uvodka2.jpg");
 
