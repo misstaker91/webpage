@@ -10,10 +10,7 @@
     height:80px;
     width:80px;}
 
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: red;
-  opacity: 1; /* Firefox */
-}
+
 
 .f-1 {
         background:linear-gradient(0deg, rgba(36, 41, 67, 0.85), rgba(36, 41, 67, 0.85));
@@ -28,30 +25,46 @@
 .f-4 {
     background-color:#8f8b92;}
 
-#firstcol {
-     color: #fce694;
+.f-5 {
+    background:linear-gradient(0deg, rgba(36, 41, 67, 0), rgba(36, 41, 67, 1))}
+
+.firstcol a{
+     color: #c57b57;
      font-family: 'Lora', serif;
+     text-decoration: none;
 }
 
-#secondcol {
-     color: #fce694;
+.secondcol a{
+     color: #dcabdf;
      font-family: 'Lora', serif;
+     text-decoration: none;
+}
+
+.borderismus1 {
+    border-bottom: 3px solid #fce694;
+    border-right: 3px solid #fce694;
 }
 
 .popisek {
-    color:white;
+    color:black;
     font-family: 'Nunito', sans-serif;
-    font-size: 18px;
+    font-size: 20px;
 }
-
+/* CUSTOM VICE ZDE LINKS */
 .customaref {
-    text-decoration: none;
-    color: #fce694;
     font-family: 'Nunito', sans-serif;
+    text-decoration: none;
+    font-size:20px
 
 }
 
-
+#ffirst {
+    color: #c57b57;
+}
+#seccond {
+    color: #dcabdf;
+}
+/*END OF CUSTOM VICE ZDE LINKS */
 .heureka{
     background:linear-gradient(0deg, rgba(36, 41, 67, 0), rgba(36, 41, 67, 1)), url("/static/fotky/uvodka2.jpg");
 
