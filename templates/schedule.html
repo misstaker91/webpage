@@ -41,7 +41,7 @@
 
       </div>
       </div>
-    </div>
+
       <div class="row my-3">
         {% for z in actual_days %}
 
@@ -119,32 +119,39 @@
 
     </form>
      {% endif %}
-
-<h3 class="text-center my-1">Poptat rezervaci</h3>
-    <form class="row g-3 my-1" method="POST" action="{{ url_for('schedule', formnumber='form1')}}" >
+    <div class="row">
+        <div class="col-12">
+        <h3 class="text-center leftnav ">Poptat rezervaci</h3>
+        </div></div>
+        <form  class="row row-cols-1 row-cols-sm-3 " method="POST" action="{{ url_for('schedule', formnumber='form1')}}" >
           {{ form.csrf_token }}
 
-          <div class="mb-3 col-md-4">
-           <label for="name" class="form-label ">Jméno</label>
-            <input type="text" name='name' class="form-control" >
+          <div class="col-sm-4  ">
+           <label for="name" class="form-label "></label>
+            <input type="text" name='name' placeholder="Jméno" class="form-control" >
             </div>
-            <div class="mb-3 col-md-4">
-           <label for="email" class="form-label">Email</label>
-            <input type="email" name='email' class="form-control" >
+            <div class="col-sm-4  ">
+           <label for="email" class="form-label"></label>
+            <input type="email" name='email' placeholder="Email" class="form-control" >
             </div>
-           <div class="mb-3 col-md-4">
-           <label for="telefon" class="form-label">Tel. číslo</label>
-            <input type="tel" name='telefon' class="form-control"  >
+           <div class="col-sm-4 ">
+           <label for="telefon" class="form-label"></label>
+            <input type="tel" name='telefon' placeholder="Tel. číslo" class="form-control">
             </div>
-          <div class="mb-3 col-12">
-          <label for="zprava" class="form-label">Zpráva</label>
-          <textarea class="form-control" name='zprava' rows="3"></textarea>
+
+
+          <div class="col-sm-12">
+          <label for="zprava" class="form-label"></label>
+          <textarea class="form-control" placeholder="Zpráva" name='zprava' rows="3"></textarea>
           </div>
 
+
+          <div class="col-sm-12 my-2 d-flex justify-content-end">
           <button type="submit" class="btn btn-success col-md-2 ms-auto">Odeslat</button>
+          </div>
 
     </form>
-
+        <div class="col-12 col-sm-12  ">
         {% with messages = get_flashed_messages() %}
                   {% if messages %}
                     {% for message in messages %}
@@ -152,8 +159,10 @@
                     {% endfor %}
                   {% endif %}
                 {% endwith %}
+        </div>
 
-  </div>
+    </div>
+    </div>
   </section>
 
 

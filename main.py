@@ -268,7 +268,8 @@ def schedule():
         raw_string = base64.urlsafe_b64encode(mimeMessage.as_bytes()).decode()
 
         message = service.users().messages().send(userId='me', body={'raw': raw_string}).execute()
-        print(message)
+
+        return redirect(url_for('index'))
         flash("Zpráva byla odeslána")
 
     return render_template("schedule.html", list_mesicu=list_mesicu, list_roku=list_roku, actual_days=actual_days,
