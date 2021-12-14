@@ -44,9 +44,6 @@
 .f-4 {
     background-color:#8f8b92;}
 
-
-
-
 #firstcol {
      color: #fce694;
      font-family: 'Lora', serif;
@@ -60,6 +57,7 @@
 .popisek {
     color:white;
     font-family: 'Nunito', sans-serif;
+    font-size: 18px;
 }
 
 .customaref {

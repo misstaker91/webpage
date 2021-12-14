@@ -1,11 +1,18 @@
 {% include "header.html" %}
 
 <section>
-    <div class="container-fluid my-2">
-      <div class="row ">
-        <div class="col-12">
+    <div class="container-fluid ">
+        <div class="row">
+            <div class="col-12 f-1">
+                <p class="p-2 popisek">Penzion stojí na úbočí hory Žalý na hraně ski-areálu Herlíkovice-Bubákov, jehož rozmanité terény sjezdovek uspokojí zkušené i začínající lyžaře. Na středisko sjezdového lyžování přímo navazují běžkařské tratě ústící do Krkonošské magistrály. V letním období se naše horská chalupa stává oblíbeným útočištěm pro školní skupiny, turisty i cykloturisty. Původní hornovrchlabské rychtářství bylo citlivě zrekonstruováno tak, že si zachovává svou dobovou atmosféru.</p>
 
-          <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            </div>
+        </div>
+
+      <div class="row ">
+        <div class="col-12 f-3">
+
+          <button class="btn  dropdown-toggle leftnav" type="button" data-bs-toggle="dropdown" aria-expanded="false">
           {{this_year}}
           </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -14,9 +21,7 @@
             {% endfor %}
              </ul>
 
-
-
-        <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <button class="btn dropdown-toggle leftnav" type="button" data-bs-toggle="dropdown" aria-expanded="false">
         {{this_month}}
         </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -25,9 +30,7 @@
           {% endfor %}
           </ul>
 
-
-
-        <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <button class="btn  dropdown-toggle leftnav" type="button" data-bs-toggle="dropdown" aria-expanded="false">
         {{apartments_query.name}}
         </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -48,7 +51,7 @@
 
               <h5 class="card-title">{{z.day}}</h5>
               {% if current_user.is_authenticated: %}
-              <a class="btn btn-dark btn-sm my-2 " href="{{url_for('schedule', daynum=z.day)}}">Reserve</a>
+              <a class="btn btn-dark btn-sm my-2 " href="{{url_for('schedule', daynum=z.day)}}">Res</a>
               {% endif %}
               {% for promenna in z.children: %}
               {% if promenna.apartmans_id == keep_pokoj %}
