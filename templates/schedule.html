@@ -12,7 +12,7 @@
       <div class="row ">
         <div class="col-12 f-3">
 
-          <button class="btn  dropdown-toggle leftnav" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <button class="btn  dropdown-toggle rightnav" type="button" data-bs-toggle="dropdown" aria-expanded="false">
           {{this_year}}
           </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -21,7 +21,7 @@
             {% endfor %}
              </ul>
 
-        <button class="btn dropdown-toggle leftnav" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <button class="btn dropdown-toggle rightnav" type="button" data-bs-toggle="dropdown" aria-expanded="false">
         {{this_month}}
         </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -30,7 +30,7 @@
           {% endfor %}
           </ul>
 
-        <button class="btn  dropdown-toggle leftnav" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <button class="btn  dropdown-toggle rightnav" type="button" data-bs-toggle="dropdown" aria-expanded="false">
         {{apartments_query.name}}
         </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -120,8 +120,8 @@
     </form>
      {% endif %}
     <div class="row">
-        <div class="col-12">
-        <h3 class="text-center leftnav ">Poptat rezervaci</h3>
+        <div class="col-12 f-3">
+        <h3 class="text-center rightnav ">Poptat rezervaci</h3>
         </div></div>
         <form  class="row row-cols-1 row-cols-sm-3 " method="POST" action="{{ url_for('schedule', formnumber='form1')}}" >
           {{ form.csrf_token }}
