@@ -13,19 +13,40 @@
 }
 
 .f-1 {
-        background-color:#242943;
-        opacity: 0.2;
-
+        background:linear-gradient(0deg, rgba(36, 41, 67, 0.85), rgba(36, 41, 67, 0.85));
+        opacity:0.85;
 }
 
 .f-2 {
-        background:linear-gradient(0deg, rgba(36, 41, 67, 0.85), rgba(36, 41, 67, 0.85));
-
-
+    background-color:#242943;
+    opacity: 0.2;
 
 }
 
-@media (min-width: 0px) {
+.nadpis {
+    text-align: center;
+}
+
+#firstcol {
+     color: #9bf6ff;
+}
+
+#secondcol {
+     color: #9bf6ff;
+}
+
+.heureka{
+    background:linear-gradient(0deg, rgba(36, 41, 67, 0), rgba(36, 41, 67, 1)), url("/static/fotky/uvodka2.jpg");
+
+    -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+   min-height: 150px;
+}
+
+
+@media (min-width: 576px) {
 .heureka{
     background:linear-gradient(0deg, rgba(36, 41, 67, 0), rgba(36, 41, 67, 1)), url("/static/fotky/uvodka2.jpg");
 
