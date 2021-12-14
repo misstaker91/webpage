@@ -251,7 +251,7 @@ def schedule():
 
     # rezervace form
     if form.validate_on_submit() and request.method == 'POST' and request.args.get("formnumber") == 'form1':
-        print(f'validated')
+
         email = request.form.get('email')
         zprava = request.form.get('zprava')
         telefon = request.form.get('telefon')

@@ -1,3 +1,27 @@
+/* Days (1-31) */
+.days {
+  padding: 10px 0;
+  background: #eee;
+  margin: 0;
+}
+
+.days li {
+  list-style-type: none;
+  display: inline-block;
+  width: 13.6%;
+  text-align: center;
+  margin-bottom: 5px;
+  font-size:12px;
+  color: #777;
+}
+
+/* Highlight the "current" day */
+.days li .active {
+  padding: 5px;
+  background: #1abc9c;
+  color: white !important
+}
+
 .leftnav {
     color: #fce694;
     font-family: 'Lora', serif;}
@@ -53,7 +77,7 @@
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-   min-height: 150px;
+   min-height: 200px;
 }
 
 
