@@ -1,5 +1,6 @@
 .leftnav {
     color: #9bf6ff;
+    font-family: 'Lora', serif;
 }
 
 .logo
@@ -8,7 +9,7 @@
 }
 
 .hmm {
-    height:300px;
+    height:70px;
 
 }
 
@@ -18,8 +19,8 @@
 }
 
 .f-2 {
-    background-color:#242943;
-    opacity: 0.2;
+    background-color:#4c4f57;
+
 
 }
 
@@ -29,12 +30,18 @@
 
 #firstcol {
      color: #9bf6ff;
+     font-family: 'Lora', serif;
 }
 
 #secondcol {
      color: #9bf6ff;
+     font-family: 'Lora', serif;
 }
 
+.popisek {
+    color:white;
+    font-family: 'Nunito', sans-serif;
+}
 .heureka{
     background:linear-gradient(0deg, rgba(36, 41, 67, 0), rgba(36, 41, 67, 1)), url("/static/fotky/uvodka2.jpg");
 
