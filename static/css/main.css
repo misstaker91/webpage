@@ -1,32 +1,27 @@
 .leftnav {
     color: #fce694;
-    font-family: 'Lora', serif;
-}
+    font-family: 'Lora', serif;}
 
-.logo
-{   height:80px;
-    width:80px;
-}
+.logo{
+    height:80px;
+    width:80px;}
 
-.hmm {
-    height:200px;
-
-}
 
 .f-1 {
         background:linear-gradient(0deg, rgba(36, 41, 67, 0.85), rgba(36, 41, 67, 0.85));
-        opacity:0.85;
-}
+        opacity:0.85;}
 
 .f-2 {
-    background-color:#c792df;
+    background-color:#dcabdf;}
+
+.f-3 {
+    background-color:#b7c6f5;}
+
+.f-4 {
+    background-color:#8f8b92;}
 
 
-}
 
-.nadpis {
-    text-align: center;
-}
 
 #firstcol {
      color: #fce694;
