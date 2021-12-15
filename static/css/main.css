@@ -33,7 +33,11 @@
 .f-6 {
     background-color:#fce694;
     }
+.cenikcss {
+     color: #c57b57;
+     font-family: 'Lora', serif;
 
+}
 .firstcol a{
      color: #c57b57;
      font-family: 'Lora', serif;
@@ -68,12 +72,23 @@
     border-right: 1px solid #093824;
 
 }
+.table > thead > tr > th {
+   border-bottom: 2px solid #fce694;
+}
 
-
+.centertable {
+    font-family: 'Nunito', sans-serif;
+    color: #c57b57;
+}
 .popisek {
     color:black;
     font-family: 'Nunito', sans-serif;
     font-size: 20px;
+}
+.popisekcenik {
+    color:black;
+    font-family: 'Nunito', sans-serif;
+    font-size: 18px;
 }
 /* CUSTOM VICE ZDE LINKS */
 .customaref {

@@ -359,6 +359,11 @@ def fotogalerie():
 
     return render_template("fotogalerie.html")
 
+@app.route('/cenik')
+def cenik():
+
+    return render_template("cenik.html")
+
 
 @app.route('/spravci/logout')
 @login_required
