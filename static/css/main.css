@@ -1,6 +1,8 @@
-.leftnav {
+.leftnav a {
+    text-decoration: none;
     color: #fce694;
     font-family: 'Lora', serif;}
+
 
 .rightnav {
     color: black;
@@ -161,3 +163,5 @@
 
 
 }}
+
+

@@ -16,8 +16,13 @@
 
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,500&family=Nunito:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,500&family=Nunito:wght@400;500&display=swap" rel="stylesheet">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/galleria/1.5.7/galleria.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type=text/javascript src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script
 </head>
 <body>
 
@@ -25,7 +30,7 @@
 <div class="container-fluid heureka">
   <div class="d-flex flex-row bd-highlight ">
 
-    <div class="bd-highlight my-4 py-2   leftnav"><h5>Penzion U Königsmarků</h5></div>
+    <div class="bd-highlight my-4 py-2   "><h5 class="leftnav"><a href="{{url_for('index')}}">Penzion U Königsmarků</a></h5></div>
   <div class="me-2 my-3 py-1 bd-highlight ms-auto">
        <button type="button " class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill=#fce694 class="bi bi-list-ul ms-auto" viewBox="0 0 16 16">

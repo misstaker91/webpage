@@ -349,6 +349,12 @@ def deleteinfo():
     db.session.commit()
     return redirect(url_for('schedule'))
 
+@app.route('/svatby')
+
+def svatby():
+    logout_user()
+    return render_template("svatby.html")
+
 
 @app.route('/spravci/logout')
 @login_required
