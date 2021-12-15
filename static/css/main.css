@@ -56,9 +56,16 @@
      text-decoration: none;
 }
 
+.fourthcol a{
+     color: #bf4e30;
+     font-family: 'Lora', serif;
+     text-decoration: none;
+}
+
 .borderismus1 {
     border-bottom: 3px solid #fce694;
     border-right: 3px solid #fce694;
+    border-left: 3px solid #fce694;
 }
 
 .borderismus2 {
@@ -106,6 +113,10 @@
 }
 #tthird{
     color: #58a4b0;
+}
+
+#ffourth{
+    color: #bf4e30;
 }
 /*END OF CUSTOM VICE ZDE LINKS */
 .heureka{

@@ -7,7 +7,7 @@ from flask_login import UserMixin, login_user, LoginManager, login_required, cur
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, ForeignKey
 from sqlalchemy.orm import relationship
-from forms import CalculationForm, SpravciLoginForm, ReservationForm, InfooHostechForm
+from forms import CalculationForm, SpravciLoginForm, ReservationForm, InfooHostechForm, Hledac
 from dotenv import load_dotenv
 # google
 from Google import Create_Service
@@ -36,6 +36,8 @@ API_VERSION = 'v1'
 SCOPES = ['https://mail.google.com/']
 
 service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
+
+
 # end google code
 # db migration if new column added follow flak-migrate
 # migrate = Migrate(app, db)
@@ -146,17 +148,47 @@ class UpdateAssociatonTable():
 # b = Apartmany()
 
 
+
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    valuebmi = 0
-    form = CalculationForm()
+    volne_apartmany_list = []
+    form = Hledac()
+
     if request.method == "POST":
-        vys = float(request.form.get('vyska'))
-        vah = float(request.form.get('vaha'))
-        vypocet_bmi = (vah / (vys * vys)) * 10000
-        rounded_bmi = round(vypocet_bmi, 1)
-        return render_template("index.html", form=form, rounded_bmi=rounded_bmi)
-    return render_template("index.html", form=form)
+        od = request.form.get('od')
+        do = request.form.get('do')
+
+        parsed_od_list = od.split("-")
+        parsed_do_list = do.split("-")
+        od_year = int(parsed_od_list[0])
+        od_month = int(parsed_od_list[1])
+        od_day = int(parsed_od_list[2])
+        do_year = int(parsed_do_list[0])
+        do_month = int(parsed_do_list[1])
+        do_day = int(parsed_do_list[2])
+
+        for mm in range(1, 9):
+            pid1res = 0
+            rezervacni_filter = Association.query.join(Apartmans).join(Dates).filter(Apartmans.id == mm).filter(
+                Dates.yearr.between(od_year, do_year)).filter(Dates.month.between(od_month, do_month)).filter(
+                Dates.day.between(od_day, do_day)).all()
+            # print(od, do, od_day, do_day)
+            # print(rezervacni_filter)
+
+            for x in rezervacni_filter:
+                if x.is_reserved:
+                    pid1res += 1
+                    print(f'pid1res +=1 {pid1res} {mm}')
+
+            if pid1res == 0:
+                print(f'pid1res == 0 {pid1res} {mm}')
+
+                volne_apartmany = Apartmans.query.filter_by(id=mm).first()
+                volne_apartmany_list.append(volne_apartmany.name)
+
+    print(volne_apartmany_list)
+    return render_template("index.html", form=form, volne_apartmany_list=volne_apartmany_list)
 
 
 ##### Code for Schedule calendar
@@ -219,7 +251,7 @@ def schedule():
 
     # vytvoreni zaznamu o hostech form
 
-    if request.args.get("formnumber") == 'form2':
+    if form.validate_on_submit() and request.method == 'POST' and request.args.get("formnumber") == 'form2':
         print(f'validated')
         od = request.form.get('od')
         do = request.form.get('do')
@@ -251,14 +283,12 @@ def schedule():
 
     # rezervace form
     if form.validate_on_submit() and request.method == 'POST' and request.args.get("formnumber") == 'form1':
-
         email = request.form.get('email')
         zprava = request.form.get('zprava')
         telefon = request.form.get('telefon')
         name = request.form.get('name')
 
         print(email, zprava, name, telefon)
-
 
         emailMsg = f'{zprava}'
         mimeMessage = MIMEMultipart()
@@ -349,19 +379,19 @@ def deleteinfo():
     db.session.commit()
     return redirect(url_for('schedule'))
 
+
 @app.route('/svatby')
-
 def svatby():
-
     return render_template("svatby.html")
+
+
 @app.route('/fotogalerie')
 def fotogalerie():
-
     return render_template("fotogalerie.html")
+
 
 @app.route('/cenik')
 def cenik():
-
     return render_template("cenik.html")
 
 

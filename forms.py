@@ -30,11 +30,18 @@ class ReservationForm(FlaskForm):
 
 
 class InfooHostechForm(FlaskForm):
-    od = DateField("Od", format='%Y-%m-%d',validators=[DataRequired()])
-    do = DateField("Do", format='%Y-%m-%d',validators=[DataRequired()])
+    od = DateField("Od", format='%Y-%m-%d', validators=[DataRequired()])
+    do = DateField("Do", format='%Y-%m-%d', validators=[DataRequired()])
     jmeno = StringField("Jméno", validators=[DataRequired()])
     email = EmailField("Email", validators=[DataRequired()])
     telefon = IntegerField("Tel. číslo", validators=[DataRequired()])
     popisek_dne = TextAreaField("", validators=[DataRequired()])
     pokoj = StringField('pokoj', validators=[DataRequired()])
+    submit = SubmitField("")
+
+
+class Hledac(FlaskForm):
+    od = DateField("Od", format='%Y-%m-%d', validators=[DataRequired()])
+    do = DateField("Do", format='%Y-%m-%d', validators=[DataRequired()])
+
     submit = SubmitField("")
