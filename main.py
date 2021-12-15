@@ -352,8 +352,12 @@ def deleteinfo():
 @app.route('/svatby')
 
 def svatby():
-    logout_user()
+
     return render_template("svatby.html")
+@app.route('/fotogalerie')
+def fotogalerie():
+
+    return render_template("fotogalerie.html")
 
 
 @app.route('/spravci/logout')
