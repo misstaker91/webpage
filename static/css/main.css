@@ -109,10 +109,28 @@
     font-family: 'Nunito', sans-serif;
     font-size: 20px;
 }
-.popisekcenik {
+
+.fp {
     color:black;
     font-family: 'Nunito', sans-serif;
     font-size: 18px;
+    margin-bottom:2px;
+    color: #f4f5f5;
+
+}
+
+.fp2 {
+    color:black;
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    margin-bottom:4px;
+    color: #f4f5f5;
+
+}
+.popisekcenik {
+    color:black;
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
 }
 /* CUSTOM VICE ZDE LINKS */
 .customaref {
@@ -135,6 +153,13 @@
 #ffourth{
     color: #bf4e30;
 }
+
+.kontakt {
+     color: #e24e1b;
+     font-family: 'Lora', serif;
+     text-decoration: none;
+     font-size:24px;
+     }
 /*END OF CUSTOM VICE ZDE LINKS */
 .heureka{
     background:linear-gradient(0deg, rgba(36, 41, 67, 0), rgba(36, 41, 67, 1)), url("/static/fotky/uvodka2.jpg");
@@ -223,4 +248,9 @@
     padding: 0;
     height: 100%;
     width: 100%;
+}
+
+.abc {
+  display: inline-block; /* the default for span */
+
 }
