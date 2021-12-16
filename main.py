@@ -154,8 +154,9 @@ class UpdateAssociatonTable():
 def index():
     volne_apartmany_list = []
     form = Hledac()
-
-    if request.method == "POST":
+    od = None
+    do = None
+    if form.validate_on_submit() and request.method == "POST":
         od = request.form.get('od')
         do = request.form.get('do')
 
@@ -188,7 +189,7 @@ def index():
                 volne_apartmany_list.append(volne_apartmany.name)
 
     print(volne_apartmany_list)
-    return render_template("index.html", form=form, volne_apartmany_list=volne_apartmany_list)
+    return render_template("index.html", form=form, volne_apartmany_list=volne_apartmany_list, od=od, do=do)
 
 
 ##### Code for Schedule calendar
