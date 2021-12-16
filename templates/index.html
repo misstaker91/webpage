@@ -31,7 +31,7 @@
         <div class="modal-content f-1">
           <div class="modal-header">
             <h5 class="modal-title modalrezervacenadpis" id="exampleModalLabel">V termínu {{od}} - {{do}} máme volné:</h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            <a href="{{url_for('index')}}"><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button></a>
           </div>
           <div class="modal-body modalrezervacetext">
              {% for abcd in volne_apartmany_list %}
