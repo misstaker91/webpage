@@ -149,14 +149,14 @@ class UpdateAssociatonTable():
 
 
 
-volne_apartmany_list = []
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    global volne_apartmany_list
+    volne_apartmany_list = []
     form = Hledac()
-
+    od = None
+    do = None
     if form.validate_on_submit() and request.method == "POST":
-
         od = request.form.get('od')
         do = request.form.get('do')
 
@@ -188,8 +188,8 @@ def index():
                 volne_apartmany = Apartmans.query.filter_by(id=mm).first()
                 volne_apartmany_list.append(volne_apartmany.name)
 
-        return render_template("index.html", form=form, volne_apartmany_list=volne_apartmany_list, od=od, do=do)
-    return render_template("index.html", form=form)
+    print(volne_apartmany_list)
+    return render_template("index.html", form=form, volne_apartmany_list=volne_apartmany_list, od=od, do=do)
 
 
 ##### Code for Schedule calendar
