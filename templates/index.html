@@ -1,10 +1,10 @@
 {% include "header.html" %}
 
 
-<div class="container-fluid f-7 ">
+<div class="container-fluid  ">
 
 
-    <form  class="row row-cols-1 col-sm-12 pb-3 borderismus2" method="POST" action="{{ url_for('index')}}" >
+    <form  class="row row-cols-1 col-sm-12 pb-3 borderismus2" method="POST" action="{{ url_for('index', formnumber='form3')}}" >
           {{ form.csrf_token }}
           <div class="col-sm-4">
            <label for="od" class="form-label "></label>
@@ -28,7 +28,7 @@
     {% if volne_apartmany_list|length > 0 : %}
     <div class="modal fade " id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel " aria-hidden="true">
       <div class="modal-dialog ">
-        <div class="modal-content f-1">
+        <div class="modal-content f-8">
           <div class="modal-header">
             <h5 class="modal-title modalrezervacenadpis" id="exampleModalLabel">V termínu {{od}} - {{do}} máme volné:</h5>
             <a href="{{url_for('index')}}"><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button></a>
@@ -39,8 +39,38 @@
                   {% endfor %}
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+
+          <div class="col-12  mt-1 d-flex">
+          <h5 class="ms-2 me-auto" style="color:white">Poptat rezervaci</h5>
+          </div>
+            <form  class="row row-cols-1 row-cols-sm-3 " method="POST" action="{{ url_for('index', formnumber='form4')}}" >
+                {{ form.csrf_token }}
+
+          <div class="col-sm-4  ">
+           <label for="name" class="form-label "></label>
+            <input type="text" name='name' placeholder="Jméno" class="form-control" >
+            </div>
+            <div class="col-sm-4  ">
+           <label for="email" class="form-label"></label>
+            <input type="email" name='email' placeholder="Email" class="form-control" >
+            </div>
+           <div class="col-sm-4 ">
+           <label for="telefon" class="form-label"></label>
+            <input type="tel" name='telefon' placeholder="Tel. číslo" class="form-control">
+            </div>
+
+
+          <div class="col-sm-12">
+          <label for="zprava" class="form-label"></label>
+          <textarea class="form-control" placeholder="Zpráva" name='zprava' rows="3"></textarea>
+          </div>
+
+
+          <div class="col-sm-12 my-2 d-flex justify-content-end">
+          <button type="submit" class="btn btn-success col-md-2 ms-auto">Odeslat</button>
+          </div>
+
+    </form>
           </div>
         </div>
       </div>
@@ -49,7 +79,7 @@
 
 
     <div class="row row-cols-1 row-cols-sm-2 ">
-    <div class="col-sm-7  "><h4 class="m-2 firstcol"><a href="{{url_for('schedule')}}">Ubytování</a></h4>
+    <div class="col-sm-7  "><h4 class="m-2 secondcol"><a href="{{url_for('schedule')}}">Ubytování</a></h4>
     <p class="ms-2 popisek ">
       Náš rodinný penzion se nachází v Krkonoších nedaleko města Vrchlabí. V těsné blízkosti se rozkládá lyžařský areál Herlíkovice-Bubákov a začínají rozsáhlé turistické trasy Krkonoš.  </p>
 
@@ -59,15 +89,15 @@
 
     <div class="col-sm-5  "><h4 class="m-2 secondcol"><a href="{{url_for('svatby')}}">Svatby</a></h4>
   <p class="ms-2 popisek ">Milí snoubenci, hledáte prostor pro uspořádání svatebního obřadu a hostiny v přírodě?<br><br></p>
-    <h6 class="d-flex justify-content-end borderismus1 "><a class="customaref me-2 " id="seccond"  href="{{url_for('svatby')}}">Více zde</a></h6>
+    <h6 class="d-flex justify-content-end borderismus1 "><a class="customaref me-2 " id="ffirst"  href="{{url_for('svatby')}}">Více zde</a></h6>
     </div>
-    <div class="col-sm-7  "><h4 class="m-2 thirdcol"><a href="{{url_for('fotogalerie')}}">Fotogalerie</a></h4>
+    <div class="col-sm-7  "><h4 class="m-2 secondcol"><a href="{{url_for('fotogalerie')}}">Fotogalerie</a></h4>
   <p class="ms-2 popisek ">Prohlédněte si naši fotogalerii </p>
-    <h6 class="d-flex justify-content-end borderismus1"><a class="customaref  me-2" id="tthird" href="{{url_for('fotogalerie')}}">Více zde</a></h6>
+    <h6 class="d-flex justify-content-end borderismus1"><a class="customaref  me-2" id="ffirst" href="{{url_for('fotogalerie')}}">Více zde</a></h6>
     </div>
-    <div class="col-sm-5  "><h4 class="m-2 fourthcol"><a href="{{url_for('cenik')}}">Ceník</a></h4>
+    <div class="col-sm-5  "><h4 class="m-2 secondcol"><a href="{{url_for('cenik')}}">Ceník</a></h4>
   <p class="ms-2 popisek "> Ceny pro aktuální sezónu </p>
-    <h6 class="d-flex justify-content-end borderismus1 "><a class="customaref  me-2" id="ffourth" href="{{url_for('cenik')}}">Více zde</a></h6>
+    <h6 class="d-flex justify-content-end borderismus1 "><a class="customaref  me-2" id="ffirst" href="{{url_for('cenik')}}">Více zde</a></h6>
     </div>
   </div>
 

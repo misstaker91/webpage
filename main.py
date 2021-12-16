@@ -148,15 +148,14 @@ class UpdateAssociatonTable():
 # b = Apartmany()
 
 
-
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
     volne_apartmany_list = []
     form = Hledac()
+    form2 = ReservationForm()
     od = None
     do = None
-    if form.validate_on_submit() and request.method == "POST":
+    if form.validate_on_submit() and request.method == "POST" and request.args.get("formnumber") == 'form3':
         od = request.form.get('od')
         do = request.form.get('do')
 
@@ -180,16 +179,36 @@ def index():
             for x in rezervacni_filter:
                 if x.is_reserved:
                     pid1res += 1
-                    print(f'pid1res +=1 {pid1res} {mm}')
+                    # print(f'pid1res +=1 {pid1res} {mm}')
 
             if pid1res == 0:
-                print(f'pid1res == 0 {pid1res} {mm}')
+                # print(f'pid1res == 0 {pid1res} {mm}')
 
                 volne_apartmany = Apartmans.query.filter_by(id=mm).first()
                 volne_apartmany_list.append(volne_apartmany.name)
 
+    if request.method == 'POST' and request.args.get("formnumber") == 'form4':
+        email = request.form.get('email')
+        zprava = request.form.get('zprava')
+        telefon = request.form.get('telefon')
+        name = request.form.get('name')
+
+        print(email, zprava, name, telefon)
+
+        emailMsg = f'{zprava}'
+        mimeMessage = MIMEMultipart()
+        mimeMessage['to'] = 'Konigsmarkovi@penzionvrchlabi.cz'
+        mimeMessage['subject'] = f'{name} {email} {telefon} '
+        mimeMessage.attach(MIMEText(emailMsg, 'plain'))
+        raw_string = base64.urlsafe_b64encode(mimeMessage.as_bytes()).decode()
+
+        message = service.users().messages().send(userId='me', body={'raw': raw_string}).execute()
+        print(f'hello world')
+        return redirect(url_for('index'))
+        flash("Zpráva byla odeslána")
+    print(form.errors)
     print(volne_apartmany_list)
-    return render_template("index.html", form=form, volne_apartmany_list=volne_apartmany_list, od=od, do=do)
+    return render_template("index.html", form=form, form2=form2, volne_apartmany_list=volne_apartmany_list, od=od, do=do)
 
 
 ##### Code for Schedule calendar
@@ -252,7 +271,7 @@ def schedule():
 
     # vytvoreni zaznamu o hostech form
 
-    if form.validate_on_submit() and request.method == 'POST' and request.args.get("formnumber") == 'form2':
+    if request.method == 'POST' and request.args.get("formnumber") == 'form2':
         print(f'validated')
         od = request.form.get('od')
         do = request.form.get('do')
@@ -282,6 +301,7 @@ def schedule():
             x.infobody = popisek_dne
             db.session.commit()
 
+    print(form.errors)
     # rezervace form
     if form.validate_on_submit() and request.method == 'POST' and request.args.get("formnumber") == 'form1':
         email = request.form.get('email')

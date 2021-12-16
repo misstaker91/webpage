@@ -13,7 +13,7 @@
     width:80px;}
 
 .modalrezervacenadpis{
-    color: #fce694;
+    color: white;
     font-size: 18px;
     font-family: 'Lora', serif;
 
@@ -21,13 +21,13 @@
 
 .modalrezervacetext{
     font-size: 16px;
-    color: #fce694;
+    color: white;
     font-family: 'Nunito', serif;
 
 }
 
 .f-1 {
-        background:linear-gradient(0deg, rgba(36, 41, 67, 1), rgba(36, 41, 67, 0.05));
+        background:linear-gradient(0deg, rgba(36, 41, 67, 0.6), rgba(36, 41, 67, 0.05));
         }
 
 .f-2 {
@@ -49,6 +49,9 @@
 .f-7 {
         background:linear-gradient(0deg, rgba(36, 41, 67, 0.05), rgba(36, 41, 67, 0.05));}
 
+.f-8 {
+        background:linear-gradient(0deg, rgba(36, 41, 67, 8), rgba(36, 41, 67, 8));}
+
 
 .cenikcss {
      color: #c57b57;
@@ -62,7 +65,7 @@
 }
 
 .secondcol a{
-     color: #dcabdf;
+     color: #680696;
      font-family: 'Lora', serif;
      text-decoration: none;
 }
@@ -111,16 +114,16 @@
 }
 
 .fp {
-    color:black;
+
     font-family: 'Nunito', sans-serif;
     font-size: 18px;
     margin-bottom:2px;
-    color: #f4f5f5;
+    color: black;
 
 }
 
 .fp2 {
-    color:black;
+
     font-family: 'Nunito', sans-serif;
     font-size: 16px;
     margin-bottom:4px;
@@ -141,7 +144,7 @@
 }
 
 #ffirst {
-    color: #c57b57;
+    color: #680696;
 }
 #seccond {
     color: #dcabdf;
@@ -155,14 +158,14 @@
 }
 
 .kontakt {
-     color: #e24e1b;
+     color: #680696;
      font-family: 'Lora', serif;
      text-decoration: none;
      font-size:24px;
      }
 /*END OF CUSTOM VICE ZDE LINKS */
 .heureka{
-    background:linear-gradient(0deg, rgba(36, 41, 67, 0), rgba(36, 41, 67, 1)), url("/static/fotky/uvodka2.jpg");
+    background:linear-gradient(0deg, rgba(36, 41, 67, 0), rgba(36, 41, 67, 0.8)), url("/static/fotky/uvodka2.jpg");
 
     -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -174,7 +177,7 @@
 
 @media (min-width: 576px) {
 .heureka{
-    background:linear-gradient(0deg, rgba(36, 41, 67, 0), rgba(36, 41, 67, 1)), url("/static/fotky/uvodka2.jpg");
+    background:linear-gradient(0deg, rgba(36, 41, 67, 0), rgba(36, 41, 67, 0.8)), url("/static/fotky/uvodka2.jpg");
 
     -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -186,7 +189,7 @@
 
 @media (min-width: 768px) {
 .heureka{
-    background:linear-gradient(0deg, rgba(36, 41, 67, 0), rgba(36, 41, 67, 1)), url("/static/fotky/uvodka2.jpg");
+    background:linear-gradient(0deg, rgba(36, 41, 67, 0), rgba(36, 41, 67, 0.8)), url("/static/fotky/uvodka2.jpg");
 
     -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -197,7 +200,7 @@
 }}
 @media (min-width: 992px) {
 .heureka{
-    background:linear-gradient(0deg, rgba(36, 41, 67, 0), rgba(36, 41, 67, 1)), url("/static/fotky/uvodka2.jpg");
+    background:linear-gradient(0deg, rgba(36, 41, 67, 0), rgba(36, 41, 67, 0.8)), url("/static/fotky/uvodka2.jpg");
 
     -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -209,7 +212,7 @@
 
 @media (min-width: 1200px) {
 .heureka{
-    background:linear-gradient(0deg, rgba(36, 41, 67, 0), rgba(36, 41, 67, 1)), url("/static/fotky/uvodka2.jpg");
+    background:linear-gradient(0deg, rgba(36, 41, 67, 0), rgba(36, 41, 67, 0.8)), url("/static/fotky/uvodka2.jpg");
 
     -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -221,7 +224,7 @@
 
 @media (min-width: 1400px) {
 .heureka{
-    background:linear-gradient(0deg, rgba(36, 41, 67, 0), rgba(36, 41, 67, 1)), url("/static/fotky/uvodka2.jpg");
+    background:linear-gradient(0deg, rgba(36, 41, 67, 0), rgba(36, 41, 67, 0.8)), url("/static/fotky/uvodka2.jpg");
 
     -webkit-background-size: cover;
   -moz-background-size: cover;
