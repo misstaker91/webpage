@@ -27,8 +27,8 @@
 }
 
 .f-1 {
-        background:linear-gradient(0deg, rgba(36, 41, 67, 1), rgba(36, 41, 67, 1));
-        opacity:0.85;}
+        background:linear-gradient(0deg, rgba(36, 41, 67, 1), rgba(36, 41, 67, 0.05));
+        }
 
 .f-2 {
     background-color:#dcabdf;}
@@ -45,6 +45,11 @@
 .f-6 {
     background-color:#fce694;
     }
+
+.f-7 {
+        background:linear-gradient(0deg, rgba(36, 41, 67, 0.05), rgba(36, 41, 67, 0.05));}
+
+
 .cenikcss {
      color: #c57b57;
      font-family: 'Lora', serif;
@@ -202,4 +207,20 @@
 
 }}
 
-
+.iframe-container{
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* Ratio 16:9 ( 100%/16*9 = 56.25% ) */
+}
+.iframe-container > *{
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
