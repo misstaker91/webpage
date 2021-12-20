@@ -88,7 +88,7 @@
           {{ form.csrf_token }}
           <div class="mb-3 col-md-2">
            <label for="od" class="form-label ">Od</label>
-            <input type="date" name='od' class="form-control" >
+            <input type="date" lang="cs"name='od' class="form-control" >
             </div>
           <div class="mb-3 col-md-2">
            <label for="do" class="form-label ">Do</label>
@@ -156,15 +156,7 @@
           </div>
 
     </form>
-        <div class="col-12 col-sm-12  ">
-        {% with messages = get_flashed_messages() %}
-                  {% if messages %}
-                    {% for message in messages %}
-                      <p>{{ message }}</p>
-                    {% endfor %}
-                  {% endif %}
-                {% endwith %}
-        </div>
+
 
     </div>
     </div>

@@ -150,6 +150,9 @@ class UpdateAssociatonTable():
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    title = "Penzion u Königsmarků"
+    content = "Rodinný penzion U Königsmarků, ubytování v Hořejším Vrchlabí hned vedle lyžařského areálu " \
+              "Herlíkovice-Bubákov "
     volne_apartmany_list = []
     form = Hledac()
     form2 = ReservationForm()
@@ -168,7 +171,7 @@ def index():
         do_month = int(parsed_do_list[1])
         do_day = int(parsed_do_list[2])
 
-        for mm in range(1, 9):
+        for mm in range(1, 10):
             pid1res = 0
             rezervacni_filter = Association.query.join(Apartmans).join(Dates).filter(Apartmans.id == mm).filter(
                 Dates.yearr.between(od_year, do_year)).filter(Dates.month.between(od_month, do_month)).filter(
@@ -193,7 +196,7 @@ def index():
         telefon = request.form.get('telefon')
         name = request.form.get('name')
 
-        print(email, zprava, name, telefon)
+        # print(email, zprava, name, telefon)
 
         emailMsg = f'{zprava}'
         mimeMessage = MIMEMultipart()
@@ -203,12 +206,14 @@ def index():
         raw_string = base64.urlsafe_b64encode(mimeMessage.as_bytes()).decode()
 
         message = service.users().messages().send(userId='me', body={'raw': raw_string}).execute()
-        print(f'hello world')
-        return redirect(url_for('index'))
+        # print(f'hello world')
         flash("Zpráva byla odeslána")
-    print(form.errors)
-    print(volne_apartmany_list)
-    return render_template("index.html", form=form, form2=form2, volne_apartmany_list=volne_apartmany_list, od=od, do=do)
+        return redirect(url_for('index'))
+
+    # print(form.errors)
+    # print(volne_apartmany_list)
+    return render_template("index.html", form=form, form2=form2, volne_apartmany_list=volne_apartmany_list, od=od, do=do,
+                           title=title, content=content)
 
 
 ##### Code for Schedule calendar
@@ -223,6 +228,9 @@ def schedule():
     global this_year
     global this_month
     global popisek_dne
+    title = "Penzion u Königsmarků - Ubytování"
+    content = "Prohlédněte si volné termíny ubytování a naplánujte vaši dovolenou, školu v přírodě, lyžařský kurz, " \
+              "svatbu nebo firemní akci na horách v rodinném penzionu U Königsmarků"
 
     form = ReservationForm()
     form2 = InfooHostechForm()
@@ -261,18 +269,18 @@ def schedule():
         if reservation_control.is_reserved:
             reservation_control.is_reserved = False
             db.session.commit()
-            print(
-                f'{current_user.name} {request.args.get("daynum")}/{this_month}/{this_year} - {apartments_query.name} Bez rezervace')
+            # print( f'{current_user.name} {request.args.get("daynum")}/{this_month}/{this_year} - {
+            # apartments_query.name} Bez rezervace')
         else:
             reservation_control.is_reserved = True
             db.session.commit()
-            print(
-                f'{current_user.name} {request.args.get("daynum")}/{this_month}/{this_year} - {apartments_query.name} Zarezervovano')
+            # print( f'{current_user.name} {request.args.get("daynum")}/{this_month}/{this_year} - {
+            # apartments_query.name} Zarezervovano')
 
     # vytvoreni zaznamu o hostech form
 
     if request.method == 'POST' and request.args.get("formnumber") == 'form2':
-        print(f'validated')
+        # print(f'validated')
         od = request.form.get('od')
         do = request.form.get('do')
         jmeno = request.form.get('name')
@@ -301,7 +309,7 @@ def schedule():
             x.infobody = popisek_dne
             db.session.commit()
 
-    print(form.errors)
+    # print(form.errors)
     # rezervace form
     if form.validate_on_submit() and request.method == 'POST' and request.args.get("formnumber") == 'form1':
         email = request.form.get('email')
@@ -309,7 +317,7 @@ def schedule():
         telefon = request.form.get('telefon')
         name = request.form.get('name')
 
-        print(email, zprava, name, telefon)
+        # print(email, zprava, name, telefon)
 
         emailMsg = f'{zprava}'
         mimeMessage = MIMEMultipart()
@@ -319,14 +327,14 @@ def schedule():
         raw_string = base64.urlsafe_b64encode(mimeMessage.as_bytes()).decode()
 
         message = service.users().messages().send(userId='me', body={'raw': raw_string}).execute()
-
-        return redirect(url_for('index'))
         flash("Zpráva byla odeslána")
+        return redirect(url_for('index'))
+
 
     return render_template("schedule.html", list_mesicu=list_mesicu, list_roku=list_roku, actual_days=actual_days,
                            this_year=this_year, this_month=this_month, all_apartmens=all_apartmens,
                            apartments_query=apartments_query, reservation_control=reservation_control,
-                           keep_pokoj=keep_pokoj, form=form, form2=form2)
+                           keep_pokoj=keep_pokoj, form=form, form2=form2, title=title, content=content)
 
 
 # prihlaseni pro spravce
@@ -391,7 +399,7 @@ def deleteinfo():
     db.session.delete(filterino.infobody)
     filterino.is_reserved = False
     """
-    print(filterino.jmeno, filterino.email, filterino.telefon, filterino.infobody)
+    # print(filterino.jmeno, filterino.email, filterino.telefon, filterino.infobody)
     filterino.jmeno = None
     filterino.email = None
     filterino.telefon = None
@@ -403,17 +411,24 @@ def deleteinfo():
 
 @app.route('/svatby')
 def svatby():
-    return render_template("svatby.html")
+    title = "Penzion u Königsmarků - Svatby a Firemní akce"
+    content = "Svatby a firemní akce na horách v rodinném penzionu U Königsmarků."
+    return render_template("svatby.html", title=title, content=content)
 
 
 @app.route('/fotogalerie')
 def fotogalerie():
-    return render_template("fotogalerie.html")
+    title = "Penzion u Königsmarků - Fotogalerie"
+    content = "Prohlédněte si naši fotogalerii - Rodinný penzion U Königsmarků, ubytování v Hořejším Vrchlabí hned " \
+              "vedle lyžařského areálu Herlíkovice-Bubákov "
+    return render_template("fotogalerie.html", title=title, content=content)
 
 
 @app.route('/cenik')
 def cenik():
-    return render_template("cenik.html")
+    title = "Penzion u Königsmarků - Ceník"
+    content = "Ceník ubytování v rodinném penzionu U Königsmarků"
+    return render_template("cenik.html", title=title, content=content)
 
 
 @app.route('/spravci/logout')
@@ -424,4 +439,4 @@ def logout():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
