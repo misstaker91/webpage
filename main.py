@@ -343,6 +343,14 @@ spravce = Spravci(name='Jan', email='petrik.janyk@gmail.com', password='.Misstak
 db.session.add(spravce)
 db.session.commit()
 """
+# delete all reserved data
+"""
+delete_all_reserved_data = Association.query.all()
+print(delete_all_reserved_data)
+for delete_data in delete_all_reserved_data:
+    delete_data.is_reserved = False
+db.session.commit()
+"""
 
 db_updated = False
 
