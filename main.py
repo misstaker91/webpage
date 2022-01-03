@@ -81,7 +81,7 @@ class Spravci(UserMixin, db.Model):
     password = db.Column(db.String(250), nullable=False)
 
 
-# db.create_all()
+db.create_all()
 
 @login_manager.user_loader
 def load_user(spravci_id):
