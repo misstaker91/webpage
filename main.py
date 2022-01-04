@@ -14,6 +14,7 @@ from Google import Create_Service
 import base64
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+
 # from flask_migrate import Migrate
 # import time
 
@@ -80,7 +81,7 @@ class Spravci(UserMixin, db.Model):
     password = db.Column(db.String(250), nullable=False)
 
 
-#db.create_all()
+# db.create_all()
 
 @login_manager.user_loader
 def load_user(spravci_id):
@@ -113,8 +114,8 @@ class Kalendar():
             this_month += 1
 
 
-#kalendar_update = Kalendar()
-#kalendar_update.create_kalendar()
+# kalendar_update = Kalendar()
+# kalendar_update.create_kalendar()
 """
 new_apartman = ["Apartmán pro 4 osoby se soc. zařízením (3)", "Apartmán pro 4 osoby se soc. zařízením (4)",
                         "Pokoj pro 4 osoby bez soc. zařízení (1)", "Pokoj pro 4 osoby bez soc. zařízení (2)",
@@ -128,6 +129,8 @@ for x in new_apartman:
     db.session.commit()
 
 """
+
+
 class UpdateAssociatonTable():
     def __init__(self):
         self.all_apartmens = Apartmans.query.all()
@@ -143,7 +146,11 @@ class UpdateAssociatonTable():
                     db.session.add(me)
                     db.session.commit()
 
-#tableup = UpdateAssociatonTable()
+
+# tableup = UpdateAssociatonTable()
+od = None
+do = None
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -153,9 +160,12 @@ def index():
     volne_apartmany_list = []
     form = Hledac()
     form2 = ReservationForm()
-    od = None
-    do = None
+    global od
+    global do
+    show_modal = False
+
     if form.validate_on_submit() and request.method == "POST" and request.args.get("formnumber") == 'form3':
+        show_modal = True
         od = request.form.get('od')
         do = request.form.get('do')
 
@@ -167,25 +177,57 @@ def index():
         do_year = int(parsed_do_list[0])
         do_month = int(parsed_do_list[1])
         do_day = int(parsed_do_list[2])
+        print(f'{od_year} {do_year} {od_month} {do_month} {od_day} {do_day}')
+        if do_month > od_month:
+            for mm in range(1, 10):
+                pid1res = 0
+                rez1 = Association.query.join(Apartmans).join(Dates).filter(Apartmans.id == mm).filter(
+                    Dates.yearr.between(od_year, do_year)).filter(Dates.month == od_month).filter(
+                    Dates.day == od_day).first()
+                rez2 = Association.query.join(Apartmans).join(Dates).filter(Apartmans.id == mm).filter(
+                    Dates.yearr.between(od_year, do_year)).filter(Dates.month == do_month).filter(
+                    Dates.day == do_day).first()
 
-        for mm in range(1, 10):
-            pid1res = 0
-            rezervacni_filter = Association.query.join(Apartmans).join(Dates).filter(Apartmans.id == mm).filter(
-                Dates.yearr.between(od_year, do_year)).filter(Dates.month.between(od_month, do_month)).filter(
-                Dates.day.between(od_day, do_day)).all()
-            # print(od, do, od_day, do_day)
-            # print(rezervacni_filter)
+                final = Association.query.filter(Association.dates_id.between(rez1.dates_id, rez2.dates_id)).filter \
+                    (Association.apartmans_id == mm).all()
 
-            for x in rezervacni_filter:
-                if x.is_reserved:
-                    pid1res += 1
-                    # print(f'pid1res +=1 {pid1res} {mm}')
+                # print(od, do, od_day, do_day)
+                if len(final) == 0:
+                    pid1res = 1
+                else:
 
-            if pid1res == 0:
-                # print(f'pid1res == 0 {pid1res} {mm}')
+                    for x in final:
+                        if x.is_reserved:
+                            pid1res += 1
+                            # print(f'pid1res +=1 {pid1res} {mm}')
 
-                volne_apartmany = Apartmans.query.filter_by(id=mm).first()
-                volne_apartmany_list.append(volne_apartmany.name)
+                    if pid1res == 0:
+                        # print(f'pid1res == 0 {pid1res} {mm}')
+
+                        volne_apartmany = Apartmans.query.filter_by(id=mm).first()
+                        volne_apartmany_list.append(volne_apartmany.name)
+        else:
+            for mm in range(1, 10):
+                pid1res = 0
+                rezervacni_filter = Association.query.join(Apartmans).join(Dates).filter(Apartmans.id == mm).filter(
+                    Dates.yearr.between(od_year, do_year)).filter(Dates.month.between(od_month, do_month)).filter(
+                    Dates.day.between(od_day, do_day)).all()
+                # print(od, do, od_day, do_day)
+
+                if len(rezervacni_filter) == 0:
+                    pid1res = 1
+                else:
+
+                    for x in rezervacni_filter:
+                        if x.is_reserved:
+                            pid1res += 1
+                            # print(f'pid1res +=1 {pid1res} {mm}')
+
+                    if pid1res == 0:
+                        # print(f'pid1res == 0 {pid1res} {mm}')
+
+                        volne_apartmany = Apartmans.query.filter_by(id=mm).first()
+                        volne_apartmany_list.append(volne_apartmany.name)
 
     if request.method == 'POST' and request.args.get("formnumber") == 'form4':
         email = request.form.get('email')
@@ -195,7 +237,7 @@ def index():
 
         # print(email, zprava, name, telefon)
 
-        emailMsg = f'{zprava}'
+        emailMsg = f'{od} {do}: {zprava}'
         mimeMessage = MIMEMultipart()
         mimeMessage['to'] = 'Konigsmarkovi@penzionvrchlabi.cz'
         mimeMessage['subject'] = f'{name} {email} {telefon} '
@@ -211,7 +253,7 @@ def index():
     # print(volne_apartmany_list)
     return render_template("index.html", form=form, form2=form2, volne_apartmany_list=volne_apartmany_list, od=od,
                            do=do,
-                           title=title, content=content)
+                           title=title, content=content, show_modal=show_modal)
 
 
 ##### Code for Schedule calendar
@@ -348,8 +390,7 @@ for delete_data in delete_all_reserved_data:
     delete_data.is_reserved = False
     db.session.commit()
 """
-delete_all_reserved_data = Association.query.all()
-print(len(delete_all_reserved_data))
+
 db_updated = False
 
 
@@ -444,7 +485,5 @@ def logout():
     return redirect(url_for('index'))
 
 
-
-
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
