@@ -14,8 +14,8 @@ from Google import Create_Service
 import base64
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from flask_migrate import Migrate
-import time
+# from flask_migrate import Migrate
+# import time
 
 load_dotenv()
 app = Flask(__name__)
