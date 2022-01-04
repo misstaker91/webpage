@@ -5,7 +5,7 @@ from datetime import datetime
 from flask import Flask, render_template, redirect, url_for, flash, request
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, ForeignKey
+from sqlalchemy import Column, ForeignKey, create_engine
 from sqlalchemy.orm import relationship
 from forms import CalculationForm, SpravciLoginForm, ReservationForm, InfooHostechForm, Hledac
 from dotenv import load_dotenv
@@ -14,8 +14,8 @@ from Google import Create_Service
 import base64
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-
-# from flask_migrate import Migrate
+from flask_migrate import Migrate
+import time
 
 load_dotenv()
 app = Flask(__name__)
@@ -60,7 +60,6 @@ class Apartmans(UserMixin, db.Model):
     __tablename__ = 'apartmans'
     id = Column(db.Integer, primary_key=True)
     name = Column(db.String(250), unique=False)
-    img_url = db.Column(db.String(250))
     parents = relationship("Association", back_populates="child")
 
 
@@ -81,14 +80,11 @@ class Spravci(UserMixin, db.Model):
     password = db.Column(db.String(250), nullable=False)
 
 
-db.create_all()
+#db.create_all()
 
 @login_manager.user_loader
 def load_user(spravci_id):
     return Spravci.query.get(spravci_id)
-
-
-bmi_dict = {'Podvaha': [0.0, 18.5], 'Normalni': [18.5, 25.0], 'Nadvaha': [25.1, 30.0], 'Obezita': [30.1, 50]}
 
 
 class Kalendar():
@@ -100,13 +96,14 @@ class Kalendar():
         this_year = self.momentalne.year
         this_month = self.momentalne.month
         for y in range(0, 16):
+            print(y)
             if this_month == 13:
                 this_month = 1
                 this_year += 1
 
             for x in self.kalendar.itermonthdays(year=this_year, month=this_month):
                 if x != 0:
-                    # print(f'{x} {this_month} {this_year}')
+                    print(f'{x} {this_month} {this_year}')
                     if Dates.query.filter_by(day=x, yearr=this_year, month=this_month).all():
                         pass
                     else:
@@ -116,19 +113,21 @@ class Kalendar():
             this_month += 1
 
 
-class Apartmany():
-    def __init__(self):
-        new_apartman = ["Apartmán pro 4 osoby se soc. zařízením (1)", "Apartmán pro 4 osoby se soc. zařízením (2)",
+#kalendar_update = Kalendar()
+#kalendar_update.create_kalendar()
+"""
+new_apartman = ["Apartmán pro 4 osoby se soc. zařízením (3)", "Apartmán pro 4 osoby se soc. zařízením (4)",
                         "Pokoj pro 4 osoby bez soc. zařízení (1)", "Pokoj pro 4 osoby bez soc. zařízení (2)",
-                        "Pokoj pro 4 osoby bez soc. zařízení (3)", "Pokoj pro 2 osoby bez soc. zařízení",
-                        "Pokoj pro 3 osoby bez soc. zařízení", "Pokoj pro 6 osob bez soc. zařízení",
-                        "Pokoj pro 9 osob bez soc. zařízení"]
-        for x in new_apartman:
-            me = Apartmans(name=x)
-            db.session.add(me)
-            db.session.commit()
+                        "Pokoj pro 4 osoby bez soc. zařízení (8)", "Pokoj pro 2 osoby bez soc. zařízení (7)",
+                        "Pokoj pro 3 osoby bez soc. zařízení (9)", "Pokoj pro 6 osob bez soc. zařízení (6)",
+                        "Pokoj pro 8 osob bez soc. zařízení (5)"]
+for x in new_apartman:
+    print(x)
+    me = Apartmans(name=x)
+    db.session.add(me)
+    db.session.commit()
 
-
+"""
 class UpdateAssociatonTable():
     def __init__(self):
         self.all_apartmens = Apartmans.query.all()
@@ -144,9 +143,7 @@ class UpdateAssociatonTable():
                     db.session.add(me)
                     db.session.commit()
 
-
-# b = Apartmany()
-
+#tableup = UpdateAssociatonTable()
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -212,7 +209,8 @@ def index():
 
     # print(form.errors)
     # print(volne_apartmany_list)
-    return render_template("index.html", form=form, form2=form2, volne_apartmany_list=volne_apartmany_list, od=od, do=do,
+    return render_template("index.html", form=form, form2=form2, volne_apartmany_list=volne_apartmany_list, od=od,
+                           do=do,
                            title=title, content=content)
 
 
@@ -330,7 +328,6 @@ def schedule():
         flash("Zpráva byla odeslána")
         return redirect(url_for('index'))
 
-
     return render_template("schedule.html", list_mesicu=list_mesicu, list_roku=list_roku, actual_days=actual_days,
                            this_year=this_year, this_month=this_month, all_apartmens=all_apartmens,
                            apartments_query=apartments_query, reservation_control=reservation_control,
@@ -339,7 +336,7 @@ def schedule():
 
 # prihlaseni pro spravce
 """
-spravce = Spravci(name='Jan', email='petrik.janyk@gmail.com', password='.Misstaker91')
+spravce = Spravci(name='j', email='j@j', password='j')
 db.session.add(spravce)
 db.session.commit()
 """
@@ -349,9 +346,10 @@ delete_all_reserved_data = Association.query.all()
 print(delete_all_reserved_data)
 for delete_data in delete_all_reserved_data:
     delete_data.is_reserved = False
-db.session.commit()
+    db.session.commit()
 """
-
+delete_all_reserved_data = Association.query.all()
+print(len(delete_all_reserved_data))
 db_updated = False
 
 
@@ -446,5 +444,7 @@ def logout():
     return redirect(url_for('index'))
 
 
+
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
