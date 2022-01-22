@@ -2,7 +2,7 @@ import calendar
 import os
 import smtplib
 from datetime import datetime
-from flask import Flask, render_template, redirect, url_for, flash, request, g
+from flask import Flask, render_template, redirect, url_for, flash, request, g, session
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, ForeignKey, create_engine
@@ -148,8 +148,7 @@ class UpdateAssociatonTable():
 
 
 # tableup = UpdateAssociatonTable()
-od = None
-do = None
+
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -160,15 +159,17 @@ def index():
     volne_apartmany_list = []
     form = Hledac()
     form2 = ReservationForm()
-    global od
-    global do
+    od = None
+    do = None
     show_modal = False
 
     if form.validate_on_submit() and request.method == "POST" and request.args.get("formnumber") == 'form3':
         show_modal = True
+
         od = request.form.get('od')
         do = request.form.get('do')
-
+        session['od'] = od
+        session['do'] = do
         parsed_od_list = od.split("-")
         parsed_do_list = do.split("-")
         od_year = int(parsed_od_list[0])
@@ -237,7 +238,7 @@ def index():
 
         # print(email, zprava, name, telefon)
 
-        emailMsg = f'{od} {do}: {zprava}'
+        emailMsg = f'{session["od"]} {session["do"]}: {zprava}'
         mimeMessage = MIMEMultipart()
         mimeMessage['to'] = 'Konigsmarkovi@penzionvrchlabi.cz'
         mimeMessage['subject'] = f'{name} {email} {telefon} '
@@ -298,7 +299,7 @@ def schedule():
     apartments_query = Apartmans.query.filter_by(id=keep_pokoj).first()
 
     actual_days = Dates.query.filter_by(yearr=int(this_year), month=int(this_month)).all()
-    actual_days2 = Dates.query.filter_by(yearr=2022, month=2).all()
+
 
 
     # konec query
@@ -394,12 +395,12 @@ for delete_data in delete_all_reserved_data:
     db.session.commit()
 """
 
-db_updated = False
+
 
 
 @app.route('/spravci/login', methods=['GET', 'POST'])
 def login_spravce():
-    global db_updated
+    db_updated = False
     form = SpravciLoginForm()
     if form.validate_on_submit() and request.method == 'POST':
         email = request.form.get('email')
