@@ -2,12 +2,12 @@ import calendar
 import os
 import smtplib
 from datetime import datetime
-from flask import Flask, render_template, redirect, url_for, flash, request
+from flask import Flask, render_template, redirect, url_for, flash, request,g
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, ForeignKey, create_engine
 from sqlalchemy.orm import relationship
-from forms import CalculationForm, SpravciLoginForm, ReservationForm, InfooHostechForm, Hledac
+from forms import CalculationForm, SpravciLoginForm, ReservationForm, InfooHostechForm, Hledac, scheduleResults
 from dotenv import load_dotenv
 # google
 from Google import Create_Service
@@ -177,7 +177,7 @@ def index():
         do_year = int(parsed_do_list[0])
         do_month = int(parsed_do_list[1])
         do_day = int(parsed_do_list[2])
-        print(f'{od_year} {do_year} {od_month} {do_month} {od_day} {do_day}')
+        # print(f'{od_year} {do_year} {od_month} {do_month} {od_day} {do_day}')
         if do_month > od_month:
             for mm in range(1, 10):
                 pid1res = 0
@@ -257,30 +257,30 @@ def index():
 
 
 ##### Code for Schedule calendar
-keep_pokoj = 1
-this_year = datetime.now().year
-this_month = datetime.now().month
+
+
 
 
 @app.route('/schedule/', methods=['GET', 'POST'])
 def schedule():
-    global keep_pokoj
-    global this_year
-    global this_month
-    global popisek_dne
+    this_year = datetime.now().year
+    this_month = datetime.now().month
+    keep_pokoj = 1
+
     title = "Penzion u Königsmarků - Ubytování"
     content = "Prohlédněte si volné termíny ubytování a naplánujte vaši dovolenou, školu v přírodě, lyžařský kurz, " \
               "svatbu nebo firemní akci na horách v rodinném penzionu U Königsmarků"
 
     form = ReservationForm()
     form2 = InfooHostechForm()
+    form3 = scheduleResults()
+    if request.method == 'POST' and request.args.get("formnumber") == 'form3':
+        this_year = int(request.form.get('rok'))
+        this_month = int(request.form.get('mesic'))
+        keep_pokoj = int(request.form.get('apartman'))
 
-    if request.args.get('rk') is not None:
-        this_year = int(request.args.get('rk'))
-    if request.args.get('msc') is not None:
-        this_month = int(request.args.get('msc'))
-    if request.args.get('appart') is not None:
-        keep_pokoj = int(request.args.get('appart'))
+
+
 
     list_roku = []
     list_mesicu = []
@@ -373,7 +373,7 @@ def schedule():
     return render_template("schedule.html", list_mesicu=list_mesicu, list_roku=list_roku, actual_days=actual_days,
                            this_year=this_year, this_month=this_month, all_apartmens=all_apartmens,
                            apartments_query=apartments_query, reservation_control=reservation_control,
-                           keep_pokoj=keep_pokoj, form=form, form2=form2, title=title, content=content)
+                           keep_pokoj=keep_pokoj, form=form, form2=form2, title=title, content=content, form3=form3)
 
 
 # prihlaseni pro spravce

@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField, IntegerField, TextAreaField, DateField
+from wtforms import StringField, SubmitField, PasswordField, IntegerField, TextAreaField, DateField, SelectField
 from wtforms.fields.html5 import EmailField
 from wtforms.validators import DataRequired, URL
 from flask_ckeditor import CKEditorField
@@ -44,4 +44,11 @@ class Hledac(FlaskForm):
     od = DateField("Od", format='%Y-%m-%d', validators=[DataRequired()])
     do = DateField("Do", format='%Y-%m-%d', validators=[DataRequired()])
 
+    submit = SubmitField("")
+
+
+class scheduleResults(FlaskForm):
+    rok = SelectField("rok", validate_choice=True)
+    mesic = SelectField("mesic", validate_choice=True)
+    apartmans = SelectField("apartmans", validate_choice=True)
     submit = SubmitField("")

@@ -15,37 +15,49 @@
             </div>
         </div>
 
-        <div class="d-grid gap-2 d-sm-block">
+        <div class="d-grid  d-sm-block">
+            <form class="row g-3 my-1" method="POST" action="{{ url_for('schedule', formnumber='form3')}}" >
+                {{ form.csrf_token }}
+          <div class="col-sm-2">
+          <select class="form-select rightnav f-6" aria-label="Default select example" name="rok"  >
+              <option selected>{{this_year}}</option>
+              {% if this_year in list_roku%}
+                {{list_roku.remove(this_year)}}
+              {% endif %}
+              {% for x in list_roku %}
 
-          <button class="btn  dropdown-toggle rightnav f-6 " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          {{this_year}}
-          </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            {% for x in list_roku %}
-              <a class="dropdown-item" href="{{url_for('schedule', rk=x)}}">{{x}}</a>
-            {% endfor %}
-             </ul>
+                <option value={{x}}>{{x}}</option>
+              {% endfor %}
+            </select>
+            </div>
+            <div class="col-sm-2">
+            <select class="form-select rightnav f-6" aria-label="Default select example" name="mesic">
+                <option selected>{{this_month}}</option>
+                {% if this_month in list_mesicu%}
+                {{list_mesicu.remove(this_month)}}
+              {% endif %}
+              {% for y in list_mesicu %}
+                <option value={{y}}>{{y}}</option>
+              {% endfor %}
+            </select>
+            </div>
+                <div class="col-sm-4">
+            <select class="form-select rightnav f-6" aria-label="Default select example" name="apartman">
+                <option selected>{{apartments_query.name}}</option>
+                {% if apartments_query in all_apartmens%}
+                {{all_apartmens.remove(apartments_query)}}
+              {% endif %}
+              {% for zz in all_apartmens %}
+                <option value={{zz.id}}>{{zz.name}}</option>
+              {% endfor %}
+            </select>
+                </div>
 
-        <button class="btn dropdown-toggle rightnav f-6" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        {{this_month}}
-        </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          {% for y in list_mesicu %}
-            <a class="dropdown-item" href="{{url_for('schedule', msc=y)}}">{{y}}</a>
-          {% endfor %}
-          </ul>
+            <button type="submit" class="btn btn-success col-sm-4 d ms-auto">Vyhledat</button>
 
-        <button class="btn  dropdown-toggle rightnav f-6" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        {{apartments_query.name}}
-        </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          {% for zz in all_apartmens %}
-            <a class="dropdown-item" href="{{url_for('schedule', appart=zz.id)}}">{{zz.name}}</a>
-          {% endfor %}
-        </ul>
+            </form>
 
 
-      </div>
 
       <div class="row py-2 borderismus2">
         {% for z in actual_days %}
