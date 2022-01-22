@@ -20,7 +20,7 @@
                 {{ form.csrf_token }}
           <div class="col-sm-2">
           <select class="form-select rightnav f-6" aria-label="Default select example" name="rok"  >
-              <option selected>{{this_year}}</option>
+              <option selected value={{this_year}}>{{this_year}}</option>
               {% if this_year in list_roku%}
                 {{list_roku.remove(this_year)}}
               {% endif %}
@@ -32,7 +32,7 @@
             </div>
             <div class="col-sm-2">
             <select class="form-select rightnav f-6" aria-label="Default select example" name="mesic">
-                <option selected>{{this_month}}</option>
+                <option selected value={{this_month}}>{{this_month}}</option>
                 {% if this_month in list_mesicu%}
                 {{list_mesicu.remove(this_month)}}
               {% endif %}
@@ -43,7 +43,7 @@
             </div>
                 <div class="col-sm-4">
             <select class="form-select rightnav f-6" aria-label="Default select example" name="apartman">
-                <option selected>{{apartments_query.name}}</option>
+                <option selected value={{apartments_query.id}}>{{apartments_query.name}}</option>
                 {% if apartments_query in all_apartmens%}
                 {{all_apartmens.remove(apartments_query)}}
               {% endif %}

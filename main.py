@@ -2,7 +2,7 @@ import calendar
 import os
 import smtplib
 from datetime import datetime
-from flask import Flask, render_template, redirect, url_for, flash, request,g
+from flask import Flask, render_template, redirect, url_for, flash, request, g
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, ForeignKey, create_engine
@@ -259,8 +259,6 @@ def index():
 ##### Code for Schedule calendar
 
 
-
-
 @app.route('/schedule/', methods=['GET', 'POST'])
 def schedule():
     this_year = datetime.now().year
@@ -274,18 +272,11 @@ def schedule():
     form = ReservationForm()
     form2 = InfooHostechForm()
     form3 = scheduleResults()
-    if request.method == 'POST' and request.args.get("formnumber") == 'form3':
-        this_year = int(request.form.get('rok'))
-        this_month = int(request.form.get('mesic'))
-        keep_pokoj = int(request.form.get('apartman'))
-
-
-
-
     list_roku = []
     list_mesicu = []
     vyber_roka = Dates.query.order_by(Dates.yearr)
     vyber_mesicu = Dates.query.order_by(Dates.month)
+
     for x in vyber_roka:
         if x.yearr not in list_roku:
             list_roku.append(x.yearr)
@@ -294,10 +285,22 @@ def schedule():
         if y.month not in list_mesicu:
             list_mesicu.append(y.month)
     # for dropdown menu
+
+    if request.method == 'POST' and request.args.get("formnumber") == 'form3':
+
+        this_year = int(request.form.get('rok'))
+        this_month = int(request.form.get('mesic'))
+        keep_pokoj = int(request.form.get('apartman'))
+
+
     all_apartmens = Apartmans.query.all()
     # query apartmens and days
     apartments_query = Apartmans.query.filter_by(id=keep_pokoj).first()
-    actual_days = Dates.query.filter_by(yearr=this_year, month=this_month).all()
+
+    actual_days = Dates.query.filter_by(yearr=int(this_year), month=int(this_month)).all()
+    actual_days2 = Dates.query.filter_by(yearr=2022, month=2).all()
+
+
     # konec query
     reservation_control = None
 
