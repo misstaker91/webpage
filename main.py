@@ -154,8 +154,8 @@ class UpdateAssociatonTable():
 @app.route('/', methods=['GET', 'POST'])
 def index():
     title = "Penzion u Königsmarků"
-    content = "Rodinný penzion U Königsmarků, ubytování v Hořejším Vrchlabí přímo u sjezdovky Herlíkovice-Bubákov - " \
-              "Krkonoše "
+    content = "Rodinný penzion U Königsmarků, ubytování v Hořejším Vrchlabí, který stojí na hoře Žalý," \
+              "přímo u sjezdovky Herlíkovice - Bubákov (Krkonoše) "
 
     volne_apartmany_list = []
     form = Hledac()
