@@ -16,7 +16,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 # from flask_migrate import Migrate
-# import time
+import time
 
 load_dotenv()
 app = Flask(__name__)
@@ -83,6 +83,7 @@ class Spravci(UserMixin, db.Model):
 
 # db.create_all()
 
+
 @login_manager.user_loader
 def load_user(spravci_id):
     return Spravci.query.get(spravci_id)
@@ -97,14 +98,14 @@ class Kalendar():
         this_year = self.momentalne.year
         this_month = self.momentalne.month
         for y in range(0, 16):
-            print(y)
+
             if this_month == 13:
                 this_month = 1
                 this_year += 1
 
             for x in self.kalendar.itermonthdays(year=this_year, month=this_month):
                 if x != 0:
-                    print(f'{x} {this_month} {this_year}')
+
                     if Dates.query.filter_by(day=x, yearr=this_year, month=this_month).all():
                         pass
                     else:
@@ -127,7 +128,6 @@ for x in new_apartman:
     me = Apartmans(name=x)
     db.session.add(me)
     db.session.commit()
-
 """
 
 
@@ -142,19 +142,20 @@ class UpdateAssociatonTable():
                 if Association.query.filter_by(dates_id=x.id, apartmans_id=y.id).all():
                     pass
                 else:
+                    time.sleep(1)
                     me = Association(dates_id=x.id, apartmans_id=y.id, is_reserved=False)
+
                     db.session.add(me)
                     db.session.commit()
 
 
-# tableup = UpdateAssociatonTable()
-
+#tableup = UpdateAssociatonTable()
 
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     title = "Penzion u Königsmarků"
-    content = "Rodinný penzion U Königsmarků, ubytování v Hořejším Vrchlabí, který stojí na hoře Žalý," \
+    content = "Rodinný penzion U Königsmarků, ubytování v Hořejším Vrchlabí, který stojí na hoře Žalý, " \
               "přímo u sjezdovky Herlíkovice - Bubákov (Krkonoše) "
 
     volne_apartmany_list = []
@@ -289,11 +290,12 @@ def schedule():
     # for dropdown menu
 
     if request.method == 'POST' and request.args.get("formnumber") == 'form3':
-
         this_year = int(request.form.get('rok'))
         this_month = int(request.form.get('mesic'))
         keep_pokoj = int(request.form.get('apartman'))
-
+        session['this_year'] = this_year
+        session['this_month'] = this_month
+        session['keep_pokoj'] = keep_pokoj
 
     all_apartmens = Apartmans.query.all()
     # query apartmens and days
@@ -301,15 +303,16 @@ def schedule():
 
     actual_days = Dates.query.filter_by(yearr=int(this_year), month=int(this_month)).all()
 
-
-
     # konec query
     reservation_control = None
 
     if request.args.get("daynum") is not None:
-        reservation_control = Association.query.join(Apartmans).filter_by(id=keep_pokoj).join(Dates).filter_by(
-            yearr=this_year,
-            month=this_month, day=int(request.args.get("daynum"))).first()
+
+
+        reservation_control = Association.query.join(Apartmans).filter_by(id=session['keep_pokoj']).join(Dates).filter_by(
+            yearr=session['this_year'],
+            month=session['this_month'], day=int(request.args.get("daynum"))).first()
+
 
         if reservation_control.is_reserved:
             reservation_control.is_reserved = False
@@ -395,8 +398,6 @@ for delete_data in delete_all_reserved_data:
     delete_data.is_reserved = False
     db.session.commit()
 """
-
-
 
 
 @app.route('/spravci/login', methods=['GET', 'POST'])
